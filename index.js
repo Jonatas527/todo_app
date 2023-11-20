@@ -9,4 +9,3 @@ app.get('/', (requisicao, reposta) => {
 app.listen(3000, () => {
     console.log("servidor rodando na pota 3000")
 })
-app
