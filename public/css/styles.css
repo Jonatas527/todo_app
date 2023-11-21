@@ -6,13 +6,22 @@
     font-family: 'Josefin Sans', sans-serif;
 }
  :root {
-    --bg-header-mobile: url(../imagens/bg-header-mobile-light.png);
+    --bg-header-mobile: url(../imagens/bg-heard-desktop-light.png);
     --input-box-shadow:rgba(194, 195, 214, 0.50);
     --input-color:#494C6B;
     --button-color:#393A4B;
-    --bg-main: #fafafa;
+    --bg-body: #fafafa;
     --bg-tarefas: #ffff;
     --box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.50);
+    --boder-color: #E3E4F1;
+    --text-color:#494C6B;
+    --info-text-color:#9495A5;
+
+ }
+
+
+ body {
+   background: var(--bg-body);
  }
 
  header { 
@@ -21,7 +30,6 @@
     background-size: cover;
     background-position: center;
     height: 12.5rem;
-
     padding: 3rem 1.75rem 0;
 
  }
@@ -30,7 +38,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     margin-bottom: 2.5rem;
  }
 
@@ -65,9 +72,8 @@
  }
 
  main {
-   background: var(--bg-main);
    min-height: calc(100vh - 12.5rem);
-   padding-inline: 1.5rem;
+   padding-inline: 1.75rem;
 
  }
 
@@ -75,12 +81,17 @@
    background: var(--bg-tarefas);
    box-shadow: var(--box-shadow);
    border-radius: 0.3125rem;
+   margin-top: -1rem;
    
  }
 
  .tarefas .tarefa {
    padding: 1rem 1.25rem;
    
+ }
+
+ .tarefas .tarefa + .tarefa {
+   border-top: 1px solid var(--boder-color);
  }
 
  .tarefa form {
@@ -93,6 +104,8 @@
    display: flex;
    align-items: center;
    gap: 0.75rem;
+   color: var(--text-color);
+   font-size: 0.775rem;
  }
 
 
@@ -100,4 +113,11 @@
    border: none;
    background: none;
 
+}
+
+.informacao {
+   border-top: 1px solid var(--boder-color);
+   padding: 1rem 1.25rem;
+   display: flex;
+   justify-content: space-between;
 }
