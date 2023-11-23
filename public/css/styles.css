@@ -72,6 +72,12 @@ body.dark {
     margin-bottom: 2.5rem;
  }
 
+ header button {
+   background: none;
+   border: none;
+   cursor: pointer;
+ }
+
  header div h1 {
     color:#fff;
     text-transform: uppercase;
