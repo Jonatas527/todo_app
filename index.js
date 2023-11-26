@@ -40,7 +40,7 @@ app.post('/criar', (requisicao, resposta) =>{
 
 app.get('/', (requisicao, reposta) => {
 
-    const sql = 'SELET * FROM tarefas'
+    const sql = 'SELECT * FROM tarefas'
 
     conexao.query(sql,(erro,dados) =>{
         if(erro){
@@ -55,10 +55,8 @@ app.get('/', (requisicao, reposta) => {
             }
         })
 
-        
+        reposta.render('home', {tarefas})
     })
-
-    reposta.render('home')
 })
 
 const conexao = mysql.createConnection({
