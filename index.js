@@ -19,6 +19,24 @@ app.use(express.json())
 
 
 //rotas
+
+app.post('/completar', (requisicao, resposta) => {
+    const id = requisicao.body.id
+
+    const sql =`
+        UPDATE tarefas 
+        SET completa ='1'
+        WHERE id = ${id}
+    `
+    conexao.query(sql, (erro) =>{
+        if(erro) {
+           return console.log(erro)
+        }
+
+        resposta.redirect('/')
+    })
+})
+
 app.post('/criar', (requisicao, resposta) =>{
     const descricao = requisicao.body.descricao
     const completa = 0
@@ -42,14 +60,14 @@ app.get('/', (requisicao, reposta) => {
 
     const sql = 'SELECT * FROM tarefas'
 
-    conexao.query(sql,(erro,dados) =>{
+    conexao.query(sql,(erro,dados) => {
         if(erro){
             return console.log(erro)
         }
 
         const tarefas = dados.map((dado) =>{
-            return{
-                id:dado.id,
+            return {
+                id: dado.id,
                 descricao: dado.descricao,
                 completa: dado.completa === 0 ? false  : true
             }
