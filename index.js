@@ -37,6 +37,10 @@ app.post('/completar', (requisicao, resposta) => {
     })
 })
 
+app.get('/ativas',(requisicao,resposta) => {
+    
+})
+
 app.post('/criar', (requisicao, resposta) =>{
     const descricao = requisicao.body.descricao
     const completa = 0
