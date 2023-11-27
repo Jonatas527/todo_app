@@ -5,8 +5,8 @@
             <form action="">
 
 
-                <div>
-                    <input type="checkbox" id="tarefa-{{this.id}}" onchange="completarTarefa({{this.id}})">
+                <div class="completa">
+                    <input type="checkbox" id="tarefa-{{this.id}}" checked onchange="descompletarTarefa({{this.id}})">
                     <label for="tarefa-{{this.id}}">{{this.descricao}}</label>
                 </div>
 
@@ -22,8 +22,8 @@
             <p> {{quantidadeTarefasAtivas}} tarefas ativas </p>
             <div class="botao">
                 <a href="/" >Todas</a>
-                <a href="/ativas" class="active">Ativas</a>
-                <a href="/completas">Completas</a>
+                <a href="/ativas">Ativas</a>
+                <a href="/completas"class="active">Completas</a>
             </div>
             <a href="">Limpar tarefas</a>
         </div>
@@ -31,7 +31,7 @@
 
     <section class="botao">
         <a href="/" >Todas</a>
-        <a href="/ativas" class="active">Ativas</a>
-        <a href="/completas">Completas</a>
+        <a href="/ativas">Ativas</a>
+        <a href="/completas" class="active">Completas</a>
     </section>
 </main>
