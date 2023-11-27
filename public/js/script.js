@@ -1,10 +1,10 @@
-function completarTarefa(id){
-    fetch("http://localhost:3000/completar",{
+function completarTarefa(id) {
+    fetch("http://localhost:3000/completar", {
         method: "POST",
         headers: {
             'content-type': 'application/json'
         },
-        body: JSON.stringify({id})
+        body: JSON.stringify({ id })
     })
 
     window.location.reload()
@@ -12,15 +12,25 @@ function completarTarefa(id){
 }
 
 function descompletarTarefa(id) {
-    fetch("http://localhost:3000/descompletar",{
+    fetch("http://localhost:3000/descompletar", {
         method: "POST",
         headers: {
             'content-type': 'application/json'
         },
-        body: JSON.stringify({id})
+        body: JSON.stringify({ id })
     })
 
     window.location.reload()
+}
+
+function excluirTarefa(id) {
+    fetch("http://localhost:3000/excluir", {
+        method: "POST",
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({ id })
+    })
 }
 
 
@@ -34,13 +44,13 @@ function alterarTema() {
     if (tema) {
         let novoTema
 
-        if (tema ==="light"){
+        if (tema === "light") {
             novoTema = "dark"
             button.innerHTML = `  <img src="/imagens/sun-icon.png" alt="icone do sol"> `
             body.classList.remove("light")
             body.classList.add("dark")
         }
-        else{
+        else {
             novoTema = "light"
             button.innerHTML = `  <img src="/imagens/moon-icon.png" alt="icone da lua"> `
             body.classList.remove("dark")
@@ -62,16 +72,16 @@ function vareificarTema() {
     const tema = localStorage.getItem("tema")
     const body = document.querySelector("body")
     const button = document.querySelector(".tema-button")
-    if (tema){
-        if(tema ===  "dark") {
-        body.classList.add("dark")
-        button.innerHTML = `  <img src="/imagens/sun-icon.png" alt="icone do sol"> `
+    if (tema) {
+        if (tema === "dark") {
+            body.classList.add("dark")
+            button.innerHTML = `  <img src="/imagens/sun-icon.png" alt="icone do sol"> `
         }
         else {
-        body.classList.add("light")
-        button.innerHTML = `  <img src="/imagens/moon-icon.png" alt="icone da lua"> `
+            body.classList.add("light")
+            button.innerHTML = `  <img src="/imagens/moon-icon.png" alt="icone da lua"> `
         }
-    } 
+    }
 }
 
 vareificarTema()
