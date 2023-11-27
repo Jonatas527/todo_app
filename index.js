@@ -1,6 +1,6 @@
 const express = require("express")
 const exphbs = require("express-handlebars")
-const mysql =require("mysql2")
+const mysql = require("mysql2")
 
 const app = express()
 
@@ -12,7 +12,7 @@ app.use(express.static('public'))
 
 //converter dados do formulario em objeto js
 app.use(express.urlencoded({
-    extended:true
+    extended: true
 }))
 
 app.use(express.json())
@@ -23,14 +23,14 @@ app.use(express.json())
 app.post('/completar', (requisicao, resposta) => {
     const id = requisicao.body.id
 
-    const sql =`
+    const sql = `
         UPDATE tarefas 
         SET completa ='1'
         WHERE id = ${id}
     `
-    conexao.query(sql, (erro) =>{
-        if(erro) {
-           return console.log(erro)
+    conexao.query(sql, (erro) => {
+        if (erro) {
+            return console.log(erro)
         }
 
         resposta.redirect('/')
@@ -38,7 +38,7 @@ app.post('/completar', (requisicao, resposta) => {
 })
 
 
-app.post('/criar', (requisicao, resposta) =>{
+app.post('/criar', (requisicao, resposta) => {
     const descricao = requisicao.body.descricao
     const completa = 0
 
@@ -47,8 +47,8 @@ app.post('/criar', (requisicao, resposta) =>{
         VALUES('${descricao}','${completa}') 
     `
 
-    conexao.query(sql, (erro) =>{
-        if(erro) {
+    conexao.query(sql, (erro) => {
+        if (erro) {
             return console.log(erro)
         }
 
@@ -57,16 +57,16 @@ app.post('/criar', (requisicao, resposta) =>{
 
 })
 
-app.post('/descompletar', (requisicao,resposta) =>{
-    const  id  = requisicao.body.id
+app.post('/descompletar', (requisicao, resposta) => {
+    const id = requisicao.body.id
 
-    const sql =`
+    const sql = `
         UPDATE tarefas
         SET completa = '0'
         WHERE id = ${id}
     `
-    conexao.query(sql, (erro) =>{
-        if(erro) {
+    conexao.query(sql, (erro) => {
+        if (erro) {
             return console.log(erro)
         }
 
@@ -75,18 +75,43 @@ app.post('/descompletar', (requisicao,resposta) =>{
 })
 
 
-app.get('/ativas',(requisicao,resposta) => {
+app.get('/completas', (requisicao, resposta) => {
     const sql = `
         SELECT * FROM tarefas
-        WHERE completa = 0
+        WHERE completa = 1
     `
-    conexao.query(sql, (erro,dados) => {
+    conexao.query(sql, (erro, dados) => {
         if (erro) {
             return console.log(erro)
         }
 
         const tarefas = dados.map((dado) => {
-            return{
+            return {
+                id: dado.id,
+                dscricao: dados.descricao,
+                completa: true
+            }
+        })
+
+
+        const quantidadeTarefas = tarefas.length
+
+        resposta.render('completas', { tarefas, quantidadeTarefas })
+    })
+})
+
+app.get('/ativas', (requisicao, resposta) => {
+    const sql = `
+        SELECT * FROM tarefas
+        WHERE completa = 0
+    `
+    conexao.query(sql, (erro, dados) => {
+        if (erro) {
+            return console.log(erro)
+        }
+
+        const tarefas = dados.map((dado) => {
+            return {
                 id: dado.id,
                 dscricao: dados.descricao,
                 completa: false
@@ -96,7 +121,7 @@ app.get('/ativas',(requisicao,resposta) => {
 
         const quantidadeTarefas = tarefas.length
 
-        resposta.render('ativas', {tarefas, quantidadeTarefas})
+        resposta.render('ativas', { tarefas, quantidadeTarefas })
     })
 })
 
@@ -104,16 +129,16 @@ app.get('/', (requisicao, reposta) => {
 
     const sql = 'SELECT * FROM tarefas'
 
-    conexao.query(sql,(erro,dados) => {
-        if(erro){
+    conexao.query(sql, (erro, dados) => {
+        if (erro) {
             return console.log(erro)
         }
 
-        const tarefas = dados.map((dado) =>{
+        const tarefas = dados.map((dado) => {
             return {
                 id: dado.id,
                 descricao: dado.descricao,
-                completa: dado.completa === 0 ? false  : true
+                completa: dado.completa === 0 ? false : true
             }
         })
 
@@ -123,12 +148,12 @@ app.get('/', (requisicao, reposta) => {
 
         const quantidadeTarefasAtivas = tarefasAtivas.length
 
-        reposta.render('home', {tarefas,  quantidadeTarefasAtivas})
+        reposta.render('home', { tarefas, quantidadeTarefasAtivas })
     })
 })
 
 const conexao = mysql.createConnection({
-    host:"localhost",
+    host: "localhost",
     user: "root",
     password: "root",
     database: "todoapp",
@@ -137,7 +162,7 @@ const conexao = mysql.createConnection({
 })
 
 conexao.connect((erro) => {
-    if(erro){
+    if (erro) {
         return console.log(erro)
     }
 
